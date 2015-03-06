@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f9057480cb3b4f1096cd74ed155fd357" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseModel.Department" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Employee" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Equipment" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.EquipmentType" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.SoftwareItem" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.SupportGroup" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.Task" Width="1.5" PointX="7.5" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="DatabaseModel.FK__Employee__Depart__1CBC4616" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK__Equipment__Depar__41EDCAC5" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK__Equipment__Assig__40F9A68C" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK__SupportGr__Overs__5F7E2DAC" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK__Task__Submitter___6DCC4D03" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK__Equipment__Type___42E1EEFE" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK__Task__Assigned_G__6EC0713C" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.Assignee" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.EquipmentInvloved" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.EquipmentSoftware" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.EquipmentUsage" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.SupportGroupMember" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

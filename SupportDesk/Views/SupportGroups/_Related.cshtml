@@ -1,0 +1,10 @@
+﻿@model SupportDesk.Models.SupportGroup
+
+@{
+    ViewDataDictionary remove = new ViewDataDictionary() { { "remove", true } };
+}
+
+<br />
+<h3>Employees assigned to this support group:</h3>
+@Html.Partial("~/Views/Employees/_List.cshtml", Model.Employees, remove)
+@Html.Partial("_AddAssignment", Model.AssignEmployee)

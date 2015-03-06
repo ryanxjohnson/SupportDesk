@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Index";
+    String controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    if (controller.Equals("Equipments"))
+    {
+        controller = "Equipment"; 
+    }
+    else if ( controller.Equals("SupportGroups"))
+    {
+        controller = "Groups";
+    }
+    else if ( controller.Equals("SoftwareItems"))
+    {
+        controller = "Software";
+    }
+    else if ( controller.Equals("EquipmentTypes"))
+    {
+        controller = "Equipment Types";
+    }
+}
+
+<h2>@controller</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@Html.Partial("_List")

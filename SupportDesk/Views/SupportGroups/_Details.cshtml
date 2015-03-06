@@ -1,0 +1,20 @@
+﻿@model SupportDesk.Models.SupportGroup
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Overseer_Employee_ID)
+    </dt>
+
+    <dd>
+        @Html.ActionLink(Model.Employee.F_Name+" "+Model.Employee.L_Name, "Details", "Employees", new { id = Model.Employee.ID }, null)
+    </dd>
+
+</dl>

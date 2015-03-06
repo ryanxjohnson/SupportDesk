@@ -1,0 +1,14 @@
+﻿@model SupportDesk.Models.Equipment
+
+@{
+    ViewDataDictionary remove = new ViewDataDictionary() { { "remove", true } };
+}
+
+<br />
+<h3>Tasks that involve this Equipment:</h3>
+@Html.Partial("~/Views/Tasks/_List.cshtml", Model.Tasks, remove)
+@Html.Partial("_AddAssignment", Model.AssignTask)
+<br />
+<h3>Software used by this Equipment:</h3>
+@Html.Partial("~/Views/SoftwareItems/_List.cshtml", Model.SoftwareItems, remove)
+@Html.Partial("_AddAssignment", Model.AssignSoftwareItem)

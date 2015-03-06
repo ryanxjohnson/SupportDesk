@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+    @Html.Partial("_Details")
+
+</div>
+
+@Html.Partial("_Related")

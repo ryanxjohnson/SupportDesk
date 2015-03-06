@@ -1,0 +1,37 @@
+﻿@model SupportDesk.Models.HasRoute
+
+@{
+    RouteValueDictionary Values = HttpContext.Current.Request.RequestContext.RouteData.Values;
+    String Controller = Values["controller"].ToString();
+    String Action = Values["action"].ToString().ToLowerInvariant();
+    
+    Object removeObject = ViewData["remove"];
+    if ( Action.Equals("edit") && removeObject != null && bool.Parse(removeObject.ToString()))
+    {
+        long? ID = long.Parse(Values["id"].ToString());
+        Model.S_ID = Model.getID().ToString();
+        using (Html.BeginForm(Model.getAction(), Controller, new { id = ID }, FormMethod.Post, new { @class = "support_desk_inline_block" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.S_ID)
+            <div class="form-horizontal support_desk_inline_block">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group support_desk_no_margin_bottom">
+                    <div class="col-md-10">
+                        <input type="submit" value="Remove" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        @Html.ActionLink("Details", "Details", Model.getController(), new { id = Model.getID() }, null)
+        if ( !Action.Equals("edit") && !Action.Equals("details") && !Action.Equals("delete")
+            && Model.getController().ToLowerInvariant().Equals(Controller.ToLowerInvariant()))
+        {
+            @: | @Html.ActionLink("Edit", "Edit", Model.getController(), new { id = Model.getID() }, null)
+            @: | @Html.ActionLink("Delete", "Delete", Model.getController(), new { id = Model.getID() }, null)
+        }
+    }
+}

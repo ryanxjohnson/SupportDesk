@@ -1,0 +1,14 @@
+﻿@model SupportDesk.Models.Task
+
+@{
+    ViewDataDictionary remove = new ViewDataDictionary() { { "remove", true } };
+}
+
+<br />
+<h3>Employees assigned to this task:</h3>
+@Html.Partial("~/Views/Employees/_List.cshtml", Model.Employees, remove)
+@Html.Partial("_AddAssignment", Model.AssignEmployee)
+<br />
+<h3>Equipment involved in this task:</h3>
+@Html.Partial("~/Views/Equipments/_List.cshtml", Model.Equipments, remove)
+@Html.Partial("_AddAssignment", Model.AssignEquipment)

@@ -1,0 +1,22 @@
+﻿@model SupportDesk.Models.Employee
+
+@{
+    ViewDataDictionary remove = new ViewDataDictionary() { { "remove", true } };
+}
+
+<br />
+<h3>Equipment assigned to this Employee:</h3>
+@Html.Partial("~/Views/Equipments/_List.cshtml", Model.Equipments)
+<br />
+<h3>Support Groups lead by this Employee:</h3>
+@Html.Partial("~/Views/SupportGroups/_List.cshtml", Model.SupportGroups)
+<h3>Support Groups this Employee is a member of:</h3>
+@Html.Partial("~/Views/SupportGroups/_List.cshtml", Model.SupportGroups1, remove)
+@Html.Partial("_AddAssignment", Model.AssignSupportGroup)
+<br />
+<h3>Tasks that this Employee created:</h3>
+@Html.Partial("~/Views/Tasks/_List.cshtml", Model.Tasks)
+<br />
+<h3>Tasks assigned to this Employee:</h3>
+@Html.Partial("~/Views/Tasks/_List.cshtml", Model.Tasks1, remove)
+@Html.Partial("_AddAssignment", Model.AssignTask)

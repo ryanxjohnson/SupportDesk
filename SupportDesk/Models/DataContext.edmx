@@ -1,0 +1,857 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Assignee">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="bigint" Nullable="false" />
+          <Property Name="Task_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="ntext" Nullable="false" />
+          <Property Name="Street" Type="ntext" />
+          <Property Name="City" Type="ntext" />
+          <Property Name="State" Type="ntext" />
+          <Property Name="ZIP" Type="ntext" />
+          <Property Name="Floor/Suite" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F_Name" Type="ntext" Nullable="false" />
+          <Property Name="L_Name" Type="ntext" Nullable="false" />
+          <Property Name="Phone" Type="bigint" />
+          <Property Name="Office" Type="ntext" />
+          <Property Name="Department_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="War_end_date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="Status" Type="ntext" />
+          <Property Name="Department_ID" Type="bigint" Nullable="false" />
+          <Property Name="Type_ID" Type="bigint" Nullable="false" />
+          <Property Name="AssignedTo_Employee_ID" Type="bigint" />
+          <Property Name="Deployed" Type="datetime2" Precision="7" />
+          <Property Name="Returned" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="EquipmentInvloved">
+          <Key>
+            <PropertyRef Name="Equipment_ID" />
+            <PropertyRef Name="Task_ID" />
+          </Key>
+          <Property Name="Equipment_ID" Type="bigint" Nullable="false" />
+          <Property Name="Task_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EquipmentSoftware">
+          <Key>
+            <PropertyRef Name="Equipment_ID" />
+            <PropertyRef Name="Software_ID" />
+          </Key>
+          <Property Name="Equipment_ID" Type="bigint" Nullable="false" />
+          <Property Name="Software_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EquipmentType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Manufacturer" Type="ntext" Nullable="false" />
+          <Property Name="ModelNumber" Type="ntext" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EquipmentUsage">
+          <Key>
+            <PropertyRef Name="User_Type_ID" />
+            <PropertyRef Name="Used_Type_ID" />
+          </Key>
+          <Property Name="User_Type_ID" Type="bigint" Nullable="false" />
+          <Property Name="Used_Type_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SoftwareItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="ntext" Nullable="false" />
+          <Property Name="Version" Type="ntext" Nullable="false" />
+          <Property Name="Manufacturer" Type="ntext" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SupportGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="ntext" Nullable="false" />
+          <Property Name="Overseer_Employee_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="SupportGroupMember">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+            <PropertyRef Name="Group_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="bigint" Nullable="false" />
+          <Property Name="Group_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="ntext" Nullable="false" />
+          <Property Name="Summary" Type="ntext" Nullable="false" />
+          <Property Name="Due" Type="datetime2" Precision="7" />
+          <Property Name="Priority" Type="ntext" Nullable="false" />
+          <Property Name="Submitted" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="Submitter_Employee_ID" Type="bigint" />
+          <Property Name="Assigned_Group_ID" Type="bigint" />
+        </EntityType>
+        <Association Name="FK__Assignee__Employ__6BE40491">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Assignee" Type="Self.Assignee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Assignee">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Assignee__Task_I__681373AD">
+          <End Role="Task" Type="Self.Task" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Assignee" Type="Self.Assignee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Assignee">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__Depart__1CBC4616">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Assig__40F9A68C">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="AssignedTo_Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Depar__41EDCAC5">
+          <End Role="Department" Type="Self.Department" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Equip__540C7B00">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EquipmentSoftware" Type="Self.EquipmentSoftware" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EquipmentSoftware">
+              <PropertyRef Name="Equipment_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Equip__6CD828CA">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EquipmentInvloved" Type="Self.EquipmentInvloved" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EquipmentInvloved">
+              <PropertyRef Name="Equipment_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Softw__531856C7">
+          <End Role="SoftwareItem" Type="Self.SoftwareItem" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EquipmentSoftware" Type="Self.EquipmentSoftware" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SoftwareItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EquipmentSoftware">
+              <PropertyRef Name="Software_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Task___690797E6">
+          <End Role="Task" Type="Self.Task" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EquipmentInvloved" Type="Self.EquipmentInvloved" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EquipmentInvloved">
+              <PropertyRef Name="Task_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Type___42E1EEFE">
+          <End Role="EquipmentType" Type="Self.EquipmentType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Used___4B7734FF">
+          <End Role="EquipmentType" Type="Self.EquipmentType" Multiplicity="1" />
+          <End Role="EquipmentUsage" Type="Self.EquipmentUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EquipmentUsage">
+              <PropertyRef Name="Used_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__User___4E53A1AA">
+          <End Role="EquipmentType" Type="Self.EquipmentType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EquipmentUsage" Type="Self.EquipmentUsage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EquipmentUsage">
+              <PropertyRef Name="User_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportGr__Emplo__6166761E">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SupportGroupMember" Type="Self.SupportGroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportGroupMember">
+              <PropertyRef Name="Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportGr__Group__607251E5">
+          <End Role="SupportGroup" Type="Self.SupportGroup" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SupportGroupMember" Type="Self.SupportGroupMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportGroupMember">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportGr__Overs__5F7E2DAC">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="SupportGroup" Type="Self.SupportGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportGroup">
+              <PropertyRef Name="Overseer_Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__Assigned_G__6EC0713C">
+          <End Role="SupportGroup" Type="Self.SupportGroup" Multiplicity="0..1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Assigned_Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__Submitter___6DCC4D03">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Submitter_Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Assignee" EntityType="Self.Assignee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EquipmentInvloved" EntityType="Self.EquipmentInvloved" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EquipmentSoftware" EntityType="Self.EquipmentSoftware" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EquipmentType" EntityType="Self.EquipmentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EquipmentUsage" EntityType="Self.EquipmentUsage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SoftwareItem" EntityType="Self.SoftwareItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportGroup" EntityType="Self.SupportGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportGroupMember" EntityType="Self.SupportGroupMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Assignee__Employ__6BE40491" Association="Self.FK__Assignee__Employ__6BE40491">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Assignee" EntitySet="Assignee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Assignee__Task_I__681373AD" Association="Self.FK__Assignee__Task_I__681373AD">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="Assignee" EntitySet="Assignee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__Depart__1CBC4616" Association="Self.FK__Employee__Depart__1CBC4616">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Assig__40F9A68C" Association="Self.FK__Equipment__Assig__40F9A68C">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Depar__41EDCAC5" Association="Self.FK__Equipment__Depar__41EDCAC5">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Equip__540C7B00" Association="Self.FK__Equipment__Equip__540C7B00">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="EquipmentSoftware" EntitySet="EquipmentSoftware" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Equip__6CD828CA" Association="Self.FK__Equipment__Equip__6CD828CA">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="EquipmentInvloved" EntitySet="EquipmentInvloved" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Softw__531856C7" Association="Self.FK__Equipment__Softw__531856C7">
+            <End Role="SoftwareItem" EntitySet="SoftwareItem" />
+            <End Role="EquipmentSoftware" EntitySet="EquipmentSoftware" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Task___690797E6" Association="Self.FK__Equipment__Task___690797E6">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="EquipmentInvloved" EntitySet="EquipmentInvloved" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Type___42E1EEFE" Association="Self.FK__Equipment__Type___42E1EEFE">
+            <End Role="EquipmentType" EntitySet="EquipmentType" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Used___4B7734FF" Association="Self.FK__Equipment__Used___4B7734FF">
+            <End Role="EquipmentType" EntitySet="EquipmentType" />
+            <End Role="EquipmentUsage" EntitySet="EquipmentUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__User___4E53A1AA" Association="Self.FK__Equipment__User___4E53A1AA">
+            <End Role="EquipmentType" EntitySet="EquipmentType" />
+            <End Role="EquipmentUsage" EntitySet="EquipmentUsage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportGr__Emplo__6166761E" Association="Self.FK__SupportGr__Emplo__6166761E">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="SupportGroupMember" EntitySet="SupportGroupMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportGr__Group__607251E5" Association="Self.FK__SupportGr__Group__607251E5">
+            <End Role="SupportGroup" EntitySet="SupportGroup" />
+            <End Role="SupportGroupMember" EntitySet="SupportGroupMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportGr__Overs__5F7E2DAC" Association="Self.FK__SupportGr__Overs__5F7E2DAC">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="SupportGroup" EntitySet="SupportGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__Assigned_G__6EC0713C" Association="Self.FK__Task__Assigned_G__6EC0713C">
+            <End Role="SupportGroup" EntitySet="SupportGroup" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__Submitter___6DCC4D03" Association="Self.FK__Task__Submitter___6DCC4D03">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ZIP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Floor_Suite" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Employee__Depart__1CBC4616" FromRole="Department" ToRole="Employee" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK__Equipment__Depar__41EDCAC5" FromRole="Department" ToRole="Equipment" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="L_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="Int64" />
+          <Property Name="Office" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Department_ID" Type="Int64" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__Employee__Depart__1CBC4616" FromRole="Employee" ToRole="Department" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK__Equipment__Assig__40F9A68C" FromRole="Employee" ToRole="Equipment" />
+          <NavigationProperty Name="SupportGroups" Relationship="Self.FK__SupportGr__Overs__5F7E2DAC" FromRole="Employee" ToRole="SupportGroup" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK__Task__Submitter___6DCC4D03" FromRole="Employee" ToRole="Task" />
+          <NavigationProperty Name="Tasks1" Relationship="Self.Assignee" FromRole="Employee" ToRole="Task" />
+          <NavigationProperty Name="SupportGroups1" Relationship="Self.SupportGroupMember" FromRole="Employee" ToRole="SupportGroup" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SerialNumber" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="War_end_date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Department_ID" Type="Int64" Nullable="false" />
+          <Property Name="Type_ID" Type="Int64" Nullable="false" />
+          <Property Name="AssignedTo_Employee_ID" Type="Int64" />
+          <Property Name="Deployed" Type="DateTime" Precision="7" />
+          <Property Name="Returned" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="Department" Relationship="Self.FK__Equipment__Depar__41EDCAC5" FromRole="Equipment" ToRole="Department" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Equipment__Assig__40F9A68C" FromRole="Equipment" ToRole="Employee" />
+          <NavigationProperty Name="EquipmentType" Relationship="Self.FK__Equipment__Type___42E1EEFE" FromRole="Equipment" ToRole="EquipmentType" />
+          <NavigationProperty Name="Tasks" Relationship="Self.EquipmentInvloved" FromRole="Equipment" ToRole="Task" />
+          <NavigationProperty Name="SoftwareItems" Relationship="Self.EquipmentSoftware" FromRole="Equipment" ToRole="SoftwareItem" />
+        </EntityType>
+        <EntityType Name="EquipmentType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Manufacturer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModelNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK__Equipment__Type___42E1EEFE" FromRole="EquipmentType" ToRole="Equipment" />
+          <NavigationProperty Name="EquipmentType1" Relationship="Self.EquipmentUsage" FromRole="EquipmentType" ToRole="EquipmentType1" />
+          <NavigationProperty Name="EquipmentTypes" Relationship="Self.EquipmentUsage" FromRole="EquipmentType1" ToRole="EquipmentType" />
+        </EntityType>
+        <EntityType Name="SoftwareItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Version" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Manufacturer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Equipments" Relationship="Self.EquipmentSoftware" FromRole="SoftwareItem" ToRole="Equipment" />
+        </EntityType>
+        <EntityType Name="SupportGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Overseer_Employee_ID" Type="Int64" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__SupportGr__Overs__5F7E2DAC" FromRole="SupportGroup" ToRole="Employee" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK__Task__Assigned_G__6EC0713C" FromRole="SupportGroup" ToRole="Task" />
+          <NavigationProperty Name="Employees" Relationship="Self.SupportGroupMember" FromRole="SupportGroup" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Due" Type="DateTime" Precision="7" />
+          <Property Name="Priority" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Submitted" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Submitter_Employee_ID" Type="Int64" />
+          <Property Name="Assigned_Group_ID" Type="Int64" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK__Task__Submitter___6DCC4D03" FromRole="Task" ToRole="Employee" />
+          <NavigationProperty Name="SupportGroup" Relationship="Self.FK__Task__Assigned_G__6EC0713C" FromRole="Task" ToRole="SupportGroup" />
+          <NavigationProperty Name="Employees" Relationship="Self.Assignee" FromRole="Task" ToRole="Employee" />
+          <NavigationProperty Name="Equipments" Relationship="Self.EquipmentInvloved" FromRole="Task" ToRole="Equipment" />
+        </EntityType>
+        <Association Name="FK__Employee__Depart__1CBC4616">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Depar__41EDCAC5">
+          <End Role="Department" Type="Self.Department" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="Department_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Assig__40F9A68C">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="AssignedTo_Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportGr__Overs__5F7E2DAC">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="SupportGroup" Type="Self.SupportGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SupportGroup">
+              <PropertyRef Name="Overseer_Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__Submitter___6DCC4D03">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Submitter_Employee_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Equipment__Type___42E1EEFE">
+          <End Role="EquipmentType" Type="Self.EquipmentType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Task__Assigned_G__6EC0713C">
+          <End Role="SupportGroup" Type="Self.SupportGroup" Multiplicity="0..1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="Assigned_Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Assignee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+        </Association>
+        <Association Name="EquipmentInvloved">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+        </Association>
+        <Association Name="EquipmentSoftware">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="SoftwareItem" Type="Self.SoftwareItem" Multiplicity="*" />
+        </Association>
+        <Association Name="EquipmentUsage">
+          <End Role="EquipmentType" Type="Self.EquipmentType" Multiplicity="*" />
+          <End Role="EquipmentType1" Type="Self.EquipmentType" Multiplicity="*" />
+        </Association>
+        <Association Name="SupportGroupMember">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Role="SupportGroup" Type="Self.SupportGroup" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Equipments" EntityType="Self.Equipment" />
+          <EntitySet Name="EquipmentTypes" EntityType="Self.EquipmentType" />
+          <EntitySet Name="SoftwareItems" EntityType="Self.SoftwareItem" />
+          <EntitySet Name="SupportGroups" EntityType="Self.SupportGroup" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <AssociationSet Name="FK__Employee__Depart__1CBC4616" Association="Self.FK__Employee__Depart__1CBC4616">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Depar__41EDCAC5" Association="Self.FK__Equipment__Depar__41EDCAC5">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="Equipment" EntitySet="Equipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Assig__40F9A68C" Association="Self.FK__Equipment__Assig__40F9A68C">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Equipment" EntitySet="Equipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportGr__Overs__5F7E2DAC" Association="Self.FK__SupportGr__Overs__5F7E2DAC">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="SupportGroup" EntitySet="SupportGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__Submitter___6DCC4D03" Association="Self.FK__Task__Submitter___6DCC4D03">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Type___42E1EEFE" Association="Self.FK__Equipment__Type___42E1EEFE">
+            <End Role="EquipmentType" EntitySet="EquipmentTypes" />
+            <End Role="Equipment" EntitySet="Equipments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Task__Assigned_G__6EC0713C" Association="Self.FK__Task__Assigned_G__6EC0713C">
+            <End Role="SupportGroup" EntitySet="SupportGroups" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="Assignee" Association="Self.Assignee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="EquipmentInvloved" Association="Self.EquipmentInvloved">
+            <End Role="Equipment" EntitySet="Equipments" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="EquipmentSoftware" Association="Self.EquipmentSoftware">
+            <End Role="Equipment" EntitySet="Equipments" />
+            <End Role="SoftwareItem" EntitySet="SoftwareItems" />
+          </AssociationSet>
+          <AssociationSet Name="EquipmentUsage" Association="Self.EquipmentUsage">
+            <End Role="EquipmentType" EntitySet="EquipmentTypes" />
+            <End Role="EquipmentType1" EntitySet="EquipmentTypes" />
+          </AssociationSet>
+          <AssociationSet Name="SupportGroupMember" Association="Self.SupportGroupMember">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="SupportGroup" EntitySet="SupportGroups" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="DatabaseModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="Floor_Suite" ColumnName="Floor/Suite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="DatabaseModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+                <ScalarProperty Name="L_Name" ColumnName="L_Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipments">
+            <EntityTypeMapping TypeName="DatabaseModel.Equipment">
+              <MappingFragment StoreEntitySet="Equipment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="War_end_date" ColumnName="War_end_date" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Department_ID" ColumnName="Department_ID" />
+                <ScalarProperty Name="Type_ID" ColumnName="Type_ID" />
+                <ScalarProperty Name="AssignedTo_Employee_ID" ColumnName="AssignedTo_Employee_ID" />
+                <ScalarProperty Name="Deployed" ColumnName="Deployed" />
+                <ScalarProperty Name="Returned" ColumnName="Returned" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EquipmentTypes">
+            <EntityTypeMapping TypeName="DatabaseModel.EquipmentType">
+              <MappingFragment StoreEntitySet="EquipmentType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="ModelNumber" ColumnName="ModelNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SoftwareItems">
+            <EntityTypeMapping TypeName="DatabaseModel.SoftwareItem">
+              <MappingFragment StoreEntitySet="SoftwareItem">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportGroups">
+            <EntityTypeMapping TypeName="DatabaseModel.SupportGroup">
+              <MappingFragment StoreEntitySet="SupportGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Overseer_Employee_ID" ColumnName="Overseer_Employee_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="DatabaseModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="Due" ColumnName="Due" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Submitted" ColumnName="Submitted" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Submitter_Employee_ID" ColumnName="Submitter_Employee_ID" />
+                <ScalarProperty Name="Assigned_Group_ID" ColumnName="Assigned_Group_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Assignee" TypeName="DatabaseModel.Assignee" StoreEntitySet="Assignee">
+            <EndProperty Name="Employee">
+              <ScalarProperty Name="ID" ColumnName="Employee_ID" />
+            </EndProperty>
+            <EndProperty Name="Task">
+              <ScalarProperty Name="ID" ColumnName="Task_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="EquipmentInvloved" TypeName="DatabaseModel.EquipmentInvloved" StoreEntitySet="EquipmentInvloved">
+            <EndProperty Name="Equipment">
+              <ScalarProperty Name="ID" ColumnName="Equipment_ID" />
+            </EndProperty>
+            <EndProperty Name="Task">
+              <ScalarProperty Name="ID" ColumnName="Task_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="EquipmentSoftware" TypeName="DatabaseModel.EquipmentSoftware" StoreEntitySet="EquipmentSoftware">
+            <EndProperty Name="Equipment">
+              <ScalarProperty Name="ID" ColumnName="Equipment_ID" />
+            </EndProperty>
+            <EndProperty Name="SoftwareItem">
+              <ScalarProperty Name="ID" ColumnName="Software_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="EquipmentUsage" TypeName="DatabaseModel.EquipmentUsage" StoreEntitySet="EquipmentUsage">
+            <EndProperty Name="EquipmentType">
+              <ScalarProperty Name="ID" ColumnName="Used_Type_ID" />
+            </EndProperty>
+            <EndProperty Name="EquipmentType1">
+              <ScalarProperty Name="ID" ColumnName="User_Type_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SupportGroupMember" TypeName="DatabaseModel.SupportGroupMember" StoreEntitySet="SupportGroupMember">
+            <EndProperty Name="Employee">
+              <ScalarProperty Name="ID" ColumnName="Employee_ID" />
+            </EndProperty>
+            <EndProperty Name="SupportGroup">
+              <ScalarProperty Name="ID" ColumnName="Group_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

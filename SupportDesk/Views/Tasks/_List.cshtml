@@ -1,0 +1,66 @@
+﻿@model IEnumerable<SupportDesk.Models.Task>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Due)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Submitted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Submitter_Employee_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Assigned_Group_ID)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Due)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Submitted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.F_Name)
+                @Html.DisplayFor(modelItem => item.Employee.L_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupportGroup.Name)
+            </td>
+            <td>
+                @Html.Partial("_Actions", item)
+            </td>
+        </tr>
+    }
+
+</table>

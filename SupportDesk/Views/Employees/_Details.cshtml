@@ -1,0 +1,44 @@
+﻿@model SupportDesk.Models.Employee
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.F_Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.F_Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.L_Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.L_Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Phone)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Phone)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Office)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Office)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Department_ID)
+    </dt>
+
+    <dd>
+        @Html.ActionLink(Model.Department.Name, "Details", "Departments", new { id = Model.Department.ID }, null)
+    </dd>
+
+</dl>

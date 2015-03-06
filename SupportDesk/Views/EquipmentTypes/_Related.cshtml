@@ -1,0 +1,16 @@
+﻿@model SupportDesk.Models.EquipmentType
+
+@{
+    ViewDataDictionary remove = new ViewDataDictionary() { { "remove", true } };
+}
+
+<br />
+<h3>Equipment of this Type:</h3>
+@Html.Partial("~/Views/Equipments/_List.cshtml", Model.Equipments)
+<br />
+<h3>Other Equipment Types that this Equipment Type is a user of:</h3>
+@Html.Partial("~/Views/EquipmentTypes/_List.cshtml", Model.EquipmentTypes, remove)
+@Html.Partial("_AddAssignment", Model.AssignEquipmentUserOf)
+<br />
+<h3>Other Equipment Types that this Equipment Type is used by:</h3>
+@Html.Partial("~/Views/EquipmentTypes/_List.cshtml", Model.EquipmentType1)

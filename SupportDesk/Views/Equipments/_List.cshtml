@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SupportDesk.Models.Equipment>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </th>
+        <th style="width: 175px">
+            @Html.DisplayNameFor(model => model.War_end_date)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Deployed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Returned)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Department_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignedTo_Employee_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type_ID)
+        </th>
+        <th style="width: 175px"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.War_end_date)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Deployed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Returned)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.F_Name)
+                @Html.DisplayFor(modelItem => item.Employee.L_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentType.Manufacturer)
+                @Html.DisplayFor(modelItem => item.EquipmentType.ModelNumber)
+            </td>
+            <td>
+                @Html.Partial("_Actions", item)
+            </td>
+        </tr>
+    }
+
+</table>

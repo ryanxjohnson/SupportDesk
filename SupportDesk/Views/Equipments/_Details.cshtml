@@ -1,0 +1,76 @@
+﻿@model SupportDesk.Models.Equipment
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.SerialNumber)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.SerialNumber)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.War_end_date)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.War_end_date)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Notes)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Notes)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Status)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Status)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Deployed)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Deployed)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Returned)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Returned)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Department_ID)
+    </dt>
+
+    <dd>
+        @Html.ActionLink(Model.Department.Name, "Details", "Departments", new { id = Model.Department.ID }, null)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.AssignedTo_Employee_ID)
+    </dt>
+
+    <dd>
+        @Html.ActionLink(Model.Employee.F_Name+" "+Model.Employee.L_Name, "Details", "Employees", new { id = Model.Employee.ID }, null)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Type_ID)
+    </dt>
+
+    <dd>
+        @Html.ActionLink(Model.EquipmentType.Manufacturer + " " + Model.EquipmentType.ModelNumber, "Details", "EquipmentTypes", new { id = Model.EquipmentType.ID }, null)
+    </dd>
+
+</dl>
